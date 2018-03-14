@@ -37,8 +37,8 @@ MongoClient.connect('mongodb://localhost:27017/Test',(err,db)=>{
     }
         console.log('connected to MongoDB server');
         db.collection('Users').insertOne({
-            name:'Rana',
-            age:37
+            name:'Max',
+            age:23
         },(err,res)=>{
             if(err){
                 return console.log('Unable to insert new user',err);
