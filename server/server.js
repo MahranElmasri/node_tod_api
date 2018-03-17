@@ -99,10 +99,15 @@ app.get('/todos/:id',(req,res)=>{
         }
         res.send({doc})
     })
-   
-
 })
-
+app.delete('/todos/:id',(req,res)=>{
+    var id=req.params.id;
+    Todo.findOneAndRemove(id).then((doc)=>{
+        res.send(doc)
+    },(err)=>{
+        res.status(400).send()
+    })
+})
 app.listen(port, () => {
     console.log(`Started st port ${port}`);
   });
