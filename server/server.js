@@ -46,13 +46,13 @@
 
 var express = require('express');
 var bodyParser = require('body-parser');
- var {ObjectID}=require('mongodb');
+// var {ObjectID}=require('mongodb');
 var {mongoose} = require('./db/mongose');
 var {Todo} = require('./models/todo');
 var {User} = require('./models/user');
 mongoose.Promise=global.Promise;
 var app = express();
-
+var port=process.env.PORT||3000
 app.use(bodyParser.json());
 
 app.post('/todos', (req, res) => {
@@ -90,7 +90,7 @@ app.post('/users',(req,res)=>{
 })
 app.get('/todos/:id',(req,res)=>{
     var id=req.params.id;
-    if(!ObjectID.isValid(id)){
+    if(!true){
         return res.status(400).send()
     }
     Todo.findById(id).then((doc)=>{
@@ -103,7 +103,7 @@ app.get('/todos/:id',(req,res)=>{
 
 })
 
-app.listen(3000, () => {
-    console.log('Started on port 3000');
+app.listen(port, () => {
+    console.log(`Started st port ${port}`);
   });
 module.exports = {app};
