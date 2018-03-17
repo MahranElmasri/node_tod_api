@@ -43,7 +43,7 @@
 //      address:'Berlin'
 //  });
 //  newUser.save();
-
+var_=require('lodash')
 var express = require('express');
 var bodyParser = require('body-parser');
 var {ObjectID}=require('mongodb');
@@ -107,6 +107,17 @@ app.delete('/todos/:id',(req,res)=>{
     },(err)=>{
         res.status(400).send()
     })
+})
+app.patch('/todos/:id',(req,res)=>{
+    var id=req.params.id;
+  
+    Todo.findByIdAndUpdate({_id:id},req.body).then(()=>{
+        Todo.findOne({_id:id}).then((doc)=>{
+            res.send({doc})
+        })
+        
+    
+    },(err)=>{res.status(400).send()})
 })
 app.listen(port, () => {
     console.log(`Started st port ${port}`);
