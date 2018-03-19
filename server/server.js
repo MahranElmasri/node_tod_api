@@ -45,6 +45,7 @@
 //  newUser.save();
 
 var express = require('express');
+var _=requird('lodash');
 var bodyParser = require('body-parser');
 var {ObjectID}=require('mongodb');
 var {mongoose} = require('./db/mongose');
