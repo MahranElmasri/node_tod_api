@@ -19,8 +19,7 @@
 
 // module.exports={Todo}
 const mongoose=require('mongoose');
-
-var Todo=mongoose.model('Todo',{
+var todoSchema=mongoose.Schema({
     name:{
         type:String,
         required:true,
@@ -37,5 +36,7 @@ var Todo=mongoose.model('Todo',{
     }
 
 })
+
+var Todo=mongoose.model('Todo',todoSchema)
 
 module.exports={Todo}
