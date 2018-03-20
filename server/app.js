@@ -43,6 +43,17 @@ app.post('/todos',(req,res)=>{
         res.status(400).send(e)
     })
 })
+
+app.post('/users/login', (req, res) => {
+    var body=_.pick(req.body,['email','password'])
+   User.findByCredentials(body.email,body.password).then((user)=>{
+       return user.generateAuthToken().then((token)=>{
+           res.header('x-auth',token).send(user)
+       })
+   }).catch((e)=>res.status(400).send())     
+})
+
+
 app.delete('/todos/:id',(req,res)=>{
     var id=req.params.id;
     if(!ObjectID.isValid(id)){
@@ -83,7 +94,7 @@ app.get('/users',(req,res)=>{
 
 app.get('/users/me',authenticate,(req,res)=>{
    res.send(req.user)
-})
+},(err)=>res.status(400).send('..'))
 
 app.post('/users',(req,res)=>{
     var body=_.pick(req.body,['email','password'])
@@ -108,3 +119,5 @@ app.delete('/users/:id',(req,res)=>{
 
 
 app.listen(3000,()=>console.log('Started on port 3000....'))
+
+module.exports = {app};
